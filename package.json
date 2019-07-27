@@ -1,0 +1,15 @@
+{
+  "name": "canvastest",
+  "version": "1.0.0",
+  "description": "",
+  "main": "ball.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "parcel": "parcel index.html"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "parcel": "^1.12.3"
+  }
+}
