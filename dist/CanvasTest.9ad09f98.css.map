@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA;AACA;AACA;AACA;AACA;AACA;AACA;AACA","file":"CanvasTest.9ad09f98.css","sourceRoot":"..","sourcesContent":["body {\n  margin: 0;\n}\ncanvas {\n  border: 1px solid black;\n  background-color: #5377a6;\n}\n"]}
