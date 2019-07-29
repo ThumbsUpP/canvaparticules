@@ -23,8 +23,7 @@ addEventListener("mousemove", getMousePosition, false);
 
 let ballPosition = [];
 
-const balls = [...Array(150).keys()].map(() => new Ball(10));
-const lines = [...Array(150).keys()].map(() => new Line());
+const balls = [...Array(80).keys()].map(() => new Ball(4));
 
 const computeDistance = (ball1, ball2) => {
   const { x: x1, y: y1 } = ball1;
@@ -32,11 +31,16 @@ const computeDistance = (ball1, ball2) => {
   return Math.pow(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2), 0.5);
 };
 
+const maprange = (value, x1, y1, x2, y2) =>
+  (value - x1) * ((y2 - x2) / (y1 - x1)) + x2;
+
 const getLinePath = (ballsPos, limit) => {
-  return ballsPos.map(position => {
-    const positions = ballsPos.map((pos, i) => {
+  return ballsPos.map((position, outerIndex) => {
+    const positions = ballsPos.map((pos, innerIndex) => {
       const dist = computeDistance(position, pos);
-      return dist < limit ? { position, pos } : null;
+      return dist < limit && outerIndex !== innerIndex
+        ? { position, pos, opacity: maprange(dist, limit, 0, 0, 0.6) }
+        : null;
     });
 
     return compact(positions);
@@ -54,25 +58,18 @@ const animate = () => {
     ballPosition = [...ballPosition, pos];
   });
 
-  const paths = getLinePath(ballPosition, 100);
-  //console.log(paths);
+  const paths = getLinePath(ballPosition, 140);
   paths.forEach(path => {
     path.forEach(p => {
       c.beginPath();
       c.moveTo(p.position.x, p.position.y);
       c.lineTo(p.pos.x, p.pos.y);
+      c.lineWidth = 1;
+      c.strokeStyle = `rgba(255,255,255,${p.opacity.toFixed(3)})`;
       c.stroke();
-      c.strokeStyle = "white";
+      c.closePath();
     });
   });
-
-  /* lines.forEach((line, i) => {
-    const { x: x1, y: y1 } = ballPosition[i];
-    const { x: x2, y: y2 } =
-      ballPosition.length - 1 === i ? ballPosition[i] : ballPosition[i + 1];
-    line.draw(x1, y1, x2, y2);
-  }); */
-
   requestAnimationFrame(animate);
 };
 

@@ -28,7 +28,7 @@ class Ball {
 
   run(x, y) {
     const isInsideCircle =
-      Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2) < 10000;
+      Math.pow(this.x - x, 2) + Math.pow(this.y - y, 2) < 50000;
 
     if (!this.enterCircle && isInsideCircle) {
       this.trackPos = [-this.dx, -this.dy];
