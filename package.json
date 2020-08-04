@@ -5,7 +5,9 @@
   "main": "ball.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "parcel": "parcel index.html"
+    "parcel": "parcel index.html",
+    "deploy": "npm run build && git add . && git commit -a -m ':hammer: Latest build' && git push origin master",
+    "build": "parcel build src/index.html --out-dir docs --public-url ./"
   },
   "author": "",
   "license": "ISC",
